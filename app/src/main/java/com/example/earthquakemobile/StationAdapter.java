@@ -47,6 +47,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ViewHold
 
         public void onBind(Station stat){
             binding.setStation(stat);
+            binding.getRoot().setOnClickListener(this);
         }
 
         @Override
@@ -54,7 +55,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ViewHold
             Station station = data.get(getAdapterPosition());
             Bundle bundle = new Bundle();
             bundle.putSerializable(DetailActivity.EXTRA_STATION, station);
-            Navigation.findNavController(v).navigate(R.id.action_menu_list_to_detailActivity);
+            Navigation.findNavController(v).navigate(R.id.action_menu_list_to_detailActivity,bundle);
         }
     }
 }

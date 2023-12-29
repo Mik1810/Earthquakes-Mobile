@@ -17,6 +17,7 @@ public class DetailActivity extends AppCompatActivity {
         DetailBinding binding = DetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Station station = (Station) getIntent().getSerializableExtra(EXTRA_STATION);
+        System.out.println(station);
         if(station != null){
             binding.setStation(station);
         }

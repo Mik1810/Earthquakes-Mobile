@@ -98,7 +98,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 if(station != null){
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(DetailActivity.EXTRA_STATION,station);
-                    Navigation.findNavController(requireView()).navigate(R.id.action_menu_list_to_detailActivity);
+                    System.out.println(station);
+                    Navigation.findNavController(requireView()).navigate(R.id.action_menu_map_to_detailActivity,bundle);
                 }
             }
         });

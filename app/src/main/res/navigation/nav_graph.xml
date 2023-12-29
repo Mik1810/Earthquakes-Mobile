@@ -11,7 +11,7 @@
         android:label="ListFragment" >
         <action
             android:id="@+id/action_menu_list_to_detailActivity"
-            app:destination="@id/detailActivity" />
+            app:destination="@id/detail" />
     </fragment>
     <fragment
         android:id="@+id/menu_map"
@@ -20,10 +20,10 @@
         android:label="MapFragment" >
         <action
             android:id="@+id/action_menu_map_to_detailActivity"
-            app:destination="@id/detailActivity" />
+            app:destination="@id/detail" />
     </fragment>
     <activity
-        android:id="@+id/detailActivity"
+        android:id="@+id/detail"
         android:name="com.example.earthquakemobile.DetailActivity"
         tools:layout="@layout/detail"
         android:label="DetailActivity" />
