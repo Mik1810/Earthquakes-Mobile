@@ -110,6 +110,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void onLocationChanged(@NonNull Location location) {
         LatLng current = new LatLng(location.getLatitude(),location.getLongitude());
         LatLngBounds.Builder bounds = new LatLngBounds.Builder();
+        bounds.include(current);
         if(this.marker == null){
             MarkerOptions opt = new MarkerOptions();
             opt.title("You");
@@ -119,17 +120,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }else{
             marker.setPosition(current);
         }
-       new Thread(()->{
-           if(!stations.isEmpty()){
-               bounds.include(current);
-               for(Station s:stations){
-                   Location sLoc = new Location("Station");
-                   sLoc.setLatitude(s.getLatitudine());
-                   sLoc.setLongitude(s.getLongitudine());
-                   if(sLoc.distanceTo(location) >= 10000)
-                       continue;
-                   bounds.include(new LatLng(s.getLatitudine(),s.getLongitudine()));
 
+        if(!markers.isEmpty()) {
+            for(Marker marker : markers) {
+                marker.remove();
+            }
+        }
+        new Thread(()->{
+           if(!stations.isEmpty()){
+               for(Station station : stations){
+                   Location sLoc = new Location("Station");
+                   sLoc.setLatitude(station.getLatitudine());
+                   sLoc.setLongitude(station.getLongitudine());
+                   if(sLoc.distanceTo(location) >= 10000) continue;
+                   bounds.include(new LatLng(station.getLatitudine(),station.getLongitudine()));
+                   createStation(station);
                }
            }
            binding.getRoot().post(()->{
@@ -140,17 +145,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     private void showMarkers(){
         mainViewModel.getStations().observe(getViewLifecycleOwner(), stations -> {
-            map.clear();
+
             MapFragment.this.stations = stations;
-            for(Station s : stations){
-                MarkerOptions opt = new MarkerOptions();
-                opt.title(s.getNome());
-                opt.position(new LatLng(s.getLatitudine(),s.getLongitudine()));
-                opt.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                Marker marker = map.addMarker(opt);
-                marker.setTag(s);
-                markers.add(marker);
-            }
+            map.clear();
+            stations.forEach(this::createStation);
+        });
+    }
+
+    private void createStation(Station station) {
+        MarkerOptions options  = new MarkerOptions();
+        options.title(station.getNome());
+        options.position(new LatLng(station.getLatitudine(), station.getLongitudine()));
+        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        requireActivity().runOnUiThread(() -> {
+            Marker marker = map.addMarker(options);
+            marker.setTag(station);
+            markers.add(marker);
         });
     }
 }
