@@ -64,6 +64,7 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
         earthquake.setLatitudine(earthquake.getLongOrLatFromJSON(JSONgeometry
                 .optJSONArray("coordinates")
                 .optString(1)));
+        if (earthquake.place.equals("null")) earthquake.setPlace("Unknown place");
         return earthquake;
     }
 
