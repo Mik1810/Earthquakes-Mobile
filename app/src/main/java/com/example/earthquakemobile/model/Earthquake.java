@@ -1,10 +1,14 @@
 package com.example.earthquakemobile.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(tableName = "earthquakes")
 public class Earthquake implements Serializable {
 
     /*  {
@@ -54,8 +58,30 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
         JSONObject JSONproperties = object.optJSONObject("properties");
         JSONObject JSONgeometry =  object.optJSONObject("geometry");
 
+        /* "5 km SSE of Okrug Gornji, Croatia"
+            State: Croatia,
+            Country: Okrug Gornji,
+            Place: 5 km SSE of Okrug Gornji
+
+            "Sicily, Italy"
+            State: Italy
+            Place: Sicily
+
+            "Thyrrenean Sea"
+            Place: Thyrrenean Sea
+
+            "null"
+            Place: Unknown Place
+         */
+
+        String[] placeAndState = JSONproperties.optString("place").split(",");
+        String state = placeAndState.length > 1 ? placeAndState[1] : null;
+        String[] placeAndCountry = placeAndState[0].split("of");
+        String country = placeAndCountry.length > 1 ? placeAndCountry[1] : null;
+        earthquake.setState(state);
+        earthquake.setCountry(country);
+        earthquake.setPlace(placeAndState[0]);
         earthquake.setTitle(JSONproperties.optString("title"));
-        earthquake.setPlace(JSONproperties.optString("place"));
         earthquake.setMagnitude(Float.valueOf(JSONproperties.optString("mag")));
         earthquake.setDate(new Date(Long.parseLong(JSONproperties.optString("time"))));
         earthquake.setLongitudine(earthquake.getLongOrLatFromJSON(JSONgeometry
@@ -64,6 +90,7 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
         earthquake.setLatitudine(earthquake.getLongOrLatFromJSON(JSONgeometry
                 .optJSONArray("coordinates")
                 .optString(1)));
+
         if (earthquake.place.equals("null")) earthquake.setPlace("Unknown place");
         return earthquake;
     }
@@ -85,6 +112,7 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", magnitude=" + magnitude +
+                ", state='" + state + '\'' +
                 ", place='" + place + '\'' +
                 ", date=" + date +
                 ", latitudine=" + latitudine +
@@ -92,10 +120,19 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
                 '}';
     }
 
+    public String toLocationString() {
+        if (country != null && state != null) return country + ", " + state;
+        if (state != null) return place + " ," + state;
+        return place;
+    }
+
+    @PrimaryKey
     private Integer id;
     private String title;
     private Float magnitude;
     private String place;
+    private String state;
+    private String country;
     private Date date;
     private Double latitudine;
     private Double longitudine;
@@ -154,5 +191,21 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
 
     public void setLongitudine(Double longitudine) {
         this.longitudine = longitudine;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import org.chromium.net.CronetEngine;
 import org.chromium.net.CronetException;
-import org.chromium.net.ICronetEngineBuilder;
 import org.chromium.net.UrlRequest;
 import org.chromium.net.UrlResponseInfo;
 
@@ -18,7 +17,6 @@ import java.util.concurrent.Executors;
 public class Request {
 
     private final String EARTHQUAKE_API_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2023-01-01&endtime=2023-12-31&latitude=41.8719&longitude=12.5674&maxradius=5";
-    private final String API_URL = "http://www.bitesrl.it/clienti/univaq/corso/distributori.json";
     private final Executor executor = Executors.newSingleThreadExecutor();
     private CronetEngine engine;
     private static volatile Request instance = null;

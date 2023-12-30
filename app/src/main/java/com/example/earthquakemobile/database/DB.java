@@ -5,13 +5,17 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
+import com.example.earthquakemobile.model.Earthquake;
 import com.example.earthquakemobile.model.Station;
 
-@Database(entities = {Station.class}, version = 1)
+@Database(entities = {Earthquake.class}, version = 1)
+@TypeConverters({DateConverter.class})
 public abstract class DB extends RoomDatabase {
-    public abstract StationDAO getStationDAO();
-    private volatile static DB db=null;
+    public abstract EarthquakeDAO getEarthquakeDAO();
+    private volatile static DB db = null;
 
     public static synchronized DB getInstance(Context context){
         if(db == null){

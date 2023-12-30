@@ -30,13 +30,14 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
         this.repo = ((Distributori)application).getRepository();
         new Thread(()->{
-            List<Earthquake> list = new ArrayList<>();
-            //List<Station> list = DB.getInstance(application).getStationDAO().getStations();
+            List<Earthquake> list =  DB.getInstance(application).getEarthquakeDAO().getEarthquakes();
+            //TODO: Salvare i terremoti nel database non ha senso perchè se uno volesse vedere quelli
+            // più recenti non potrebbe, si potrebbe implementare un metodo che fa comunque la fetch
+            // all'API per scaricare unicamente i terremoti più recenti
             if(list.isEmpty()){
                 this.repo.downloadData(application,new Request.RequestCallback(){
                     @Override
                     public void onCompleted(UrlRequest request, UrlResponseInfo info, byte[] data, CronetException error) {
-                        //List<Station> temp = new ArrayList<Station>();
                         List<Earthquake> temp = new ArrayList<Earthquake>();
                         if(data != null) {
                             String response = new String(data);
@@ -55,7 +56,7 @@ public class MainViewModel extends AndroidViewModel {
                                 e.printStackTrace();
                             }
                         }
-                        //DB.getInstance(getApplication()).getStationDAO().insert(temp);
+                        DB.getInstance(getApplication()).getEarthquakeDAO().insert(temp);
                         earthquakes.postValue(temp);
                     }
                 });

@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="@{earthquake.place}"
+                android:text="@{earthquake.toLocationString()}"
                 tools:text="City Name" />
 
             <TextView
