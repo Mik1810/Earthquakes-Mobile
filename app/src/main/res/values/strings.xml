@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EarthquakeMobile</string>
+    <string name="app_name">Earthquake Mobile</string>
     <string name="list">List</string>
     <string name="map">Map</string>
     <string name="location_needed">Location Needed</string>
