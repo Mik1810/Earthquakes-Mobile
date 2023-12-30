@@ -98,7 +98,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 Earthquake earthquake = (Earthquake)marker.getTag();
                 if(earthquake != null){
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(DetailActivity.EXTRA_STATION, earthquake);
+                    bundle.putSerializable(DetailActivity.EXTRA_EARTHQUAKE, earthquake);
                     System.out.println(earthquake);
                     Navigation.findNavController(requireView()).navigate(R.id.action_menu_map_to_detailActivity,bundle);
                 }

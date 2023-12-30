@@ -56,7 +56,7 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
         public void onClick(View v) {
             Earthquake earthquake = data.get(getAdapterPosition());
             Bundle bundle = new Bundle();
-            bundle.putSerializable(DetailActivity.EXTRA_STATION, earthquake);
+            bundle.putSerializable(DetailActivity.EXTRA_EARTHQUAKE, earthquake);
             Navigation.findNavController(v).navigate(R.id.action_menu_list_to_detailActivity,bundle);
         }
     }

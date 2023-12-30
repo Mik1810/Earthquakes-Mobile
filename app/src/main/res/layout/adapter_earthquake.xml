@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
-                android:text="@{earthquake.magnitude.toString()}"
+                android:text="@{earthquake.magnitude.toString() + ` - ` + earthquake.date.toLocaleString()}"
                 tools:text="Informations" />
         </LinearLayout>
 

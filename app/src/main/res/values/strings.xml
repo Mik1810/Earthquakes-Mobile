@@ -3,4 +3,5 @@
     <string name="list">List</string>
     <string name="map">Map</string>
     <string name="location_needed">Location Needed</string>
+    <string name="magnitude">Magnitude:</string>
 </resources>
