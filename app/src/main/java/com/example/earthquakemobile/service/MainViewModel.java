@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.earthquakemobile.Distributori;
 import com.example.earthquakemobile.database.DB;
+import com.example.earthquakemobile.model.Earthquake;
 import com.example.earthquakemobile.model.Station;
 
 import org.chromium.net.CronetException;
@@ -23,26 +24,30 @@ import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
     private Repository repo;
-    private MutableLiveData<List<Station>> stations = new MutableLiveData<>();
+    private MutableLiveData<List<Earthquake>> earthquakes = new MutableLiveData<>();
+    //private MutableLiveData<List<Station>> stations = new MutableLiveData<>();
     public MainViewModel(@NonNull Application application) {
         super(application);
         this.repo = ((Distributori)application).getRepository();
         new Thread(()->{
-            List<Station> list = DB.getInstance(application).getStationDAO().getStations();
+            List<Earthquake> list = new ArrayList<>();
+            //List<Station> list = DB.getInstance(application).getStationDAO().getStations();
             if(list.isEmpty()){
                 this.repo.downloadData(application,new Request.RequestCallback(){
                     @Override
                     public void onCompleted(UrlRequest request, UrlResponseInfo info, byte[] data, CronetException error) {
-                        List<Station> temp = new ArrayList<Station>();
+                        //List<Station> temp = new ArrayList<Station>();
+                        List<Earthquake> temp = new ArrayList<Earthquake>();
                         if(data != null) {
                             String response = new String(data);
                             try{
-                                JSONArray array = new JSONArray(response);
+                                JSONObject object = new JSONObject(response);
+                                JSONArray array = object.optJSONArray("features");
                                 for(int i = 0 ; i < array.length(); i++){
                                     JSONObject item = array.optJSONObject(i);
-                                    Station stat = Station.parseJson(item);
-                                    if(stat != null && stat.getNome().length() != 0){
-                                        temp.add(stat);
+                                    Earthquake heqk = Earthquake.parseJson(item);
+                                    if(heqk != null && heqk.getTitle().length() != 0){
+                                        temp.add(heqk);
                                     }
 
                                 }
@@ -50,19 +55,19 @@ public class MainViewModel extends AndroidViewModel {
                                 e.printStackTrace();
                             }
                         }
-                        DB.getInstance(getApplication()).getStationDAO().insert(temp);
-                        stations.postValue(temp);
+                        //DB.getInstance(getApplication()).getStationDAO().insert(temp);
+                        earthquakes.postValue(temp);
                     }
                 });
             }else{
-                stations.postValue(list);
+                earthquakes.postValue(list);
             }
         }).start();
 
     }
 
-    public LiveData<List<Station>> getStations(){
-        return stations;
+    public LiveData<List<Earthquake>> getEarthquakes(){
+        return earthquakes;
     }
 
 

@@ -7,19 +7,7 @@ import java.util.Date;
 
 public class Earthquake implements Serializable {
 
-    /*
-     * {
-      "type": "FeatureCollection",
-      "metadata": {
-        "generated": 1703868146000,
-        "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2023-01-01&endtime=2023-12-31&latitude=41.8719&longitude=12.5674&maxradius=5",
-        "title": "USGS Earthquakes",
-        "status": 200,
-        "api": "1.14.0",
-        "count": 43
-      },
-      "features": [
-        {
+    /*  {
           "type": "Feature",
           "properties": {
 OK          "mag": 3.5,
@@ -63,20 +51,19 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
         if(object == null) return null;
         Earthquake earthquake = new Earthquake();
 
-        JSONObject JSONproperties = object.optJSONArray("features")
-                                           .optJSONObject(0)
-                                           .optJSONObject("properties");
-        JSONObject JSONgeometry =  object.optJSONArray("features")
-                                            .optJSONObject(0)
-                                            .optJSONObject("geometry");
+        JSONObject JSONproperties = object.optJSONObject("properties");
+        JSONObject JSONgeometry =  object.optJSONObject("geometry");
+
         earthquake.setTitle(JSONproperties.optString("title"));
         earthquake.setPlace(JSONproperties.optString("place"));
         earthquake.setMagnitude(Float.valueOf(JSONproperties.optString("mag")));
         earthquake.setDate(new Date(Long.parseLong(JSONproperties.optString("time"))));
         earthquake.setLongitudine(earthquake.getLongOrLatFromJSON(JSONgeometry
-                .optJSONArray("coordinates").optString(0)));
+                .optJSONArray("coordinates")
+                .optString(0)));
         earthquake.setLatitudine(earthquake.getLongOrLatFromJSON(JSONgeometry
-                .optJSONArray("coordinates").optString(1)));
+                .optJSONArray("coordinates")
+                .optString(1)));
         return earthquake;
     }
 
@@ -108,7 +95,7 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
     private String title;
     private Float magnitude;
     private String place;
-    private Date date; //Timestamp
+    private Date date;
     private Double latitudine;
     private Double longitudine;
 

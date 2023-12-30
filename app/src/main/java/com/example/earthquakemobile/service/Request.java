@@ -44,7 +44,7 @@ public class Request {
 
     public void requestDownload(Request.RequestCallback callback){
         try{
-            engine.newUrlRequestBuilder(API_URL,callback,executor).build().start();
+            engine.newUrlRequestBuilder(EARTHQUAKE_API_URL,callback,executor).build().start();
         }catch(Exception e){
             System.out.println("Gotcha");
             e.printStackTrace();

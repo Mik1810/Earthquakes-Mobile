@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.earthquakemobile.databinding.FragmentListBinding;
+import com.example.earthquakemobile.model.Earthquake;
 import com.example.earthquakemobile.model.Station;
 import com.example.earthquakemobile.service.MainViewModel;
 
@@ -33,16 +34,16 @@ public class ListFragment extends Fragment {
         try{
             MainViewModel mainViewModel = new ViewModelProvider(requireActivity())
                     .get(MainViewModel.class);
-            binding.cityList.setLayoutManager(new LinearLayoutManager(requireContext()));
-            mainViewModel.getStations().observe(getViewLifecycleOwner(), new Observer<List<Station>>() {
+            binding.earthquakeList.setLayoutManager(new LinearLayoutManager(requireContext()));
+            mainViewModel.getEarthquakes().observe(getViewLifecycleOwner(), new Observer<List<Earthquake>>() {
                 @Override
-                public void onChanged(List<Station> stations) {
-                    binding.cityList.setAdapter(new StationAdapter(stations));
+                public void onChanged(List<Earthquake> earthquakes) {
+                    binding.earthquakeList.setAdapter(new EarthquakeAdapter(earthquakes));
                 }
             });
         }catch(Exception e) {
             e.printStackTrace();
-            System.out.println("Porco");
+            System.out.println("Ciao");
         }
     }
 }

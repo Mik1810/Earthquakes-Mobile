@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.earthquakemobile.databinding.FragmentMapBinding;
+import com.example.earthquakemobile.model.Earthquake;
 import com.example.earthquakemobile.model.Station;
 import com.example.earthquakemobile.service.LocationHelper;
 import com.example.earthquakemobile.service.MainViewModel;
@@ -40,7 +41,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private GoogleMap map;
     private FragmentMapBinding binding;
     private MainViewModel mainViewModel;
-    private List<Station> stations = new ArrayList<Station>();
+    private List<Earthquake> earthquakes = new ArrayList<Earthquake>();
     private Marker marker;
     private List<Marker> markers = new ArrayList<Marker>();
     private ActivityResultLauncher<String> permissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
@@ -94,11 +95,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(@NonNull Marker marker) {
-                Station station = (Station )marker.getTag();
-                if(station != null){
+                Earthquake earthquake = (Earthquake)marker.getTag();
+                if(earthquake != null){
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(DetailActivity.EXTRA_STATION,station);
-                    System.out.println(station);
+                    bundle.putSerializable(DetailActivity.EXTRA_STATION, earthquake);
+                    System.out.println(earthquake);
                     Navigation.findNavController(requireView()).navigate(R.id.action_menu_map_to_detailActivity,bundle);
                 }
             }
@@ -127,14 +128,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
         }
         new Thread(()->{
-           if(!stations.isEmpty()){
-               for(Station station : stations){
-                   Location sLoc = new Location("Station");
-                   sLoc.setLatitude(station.getLatitudine());
-                   sLoc.setLongitude(station.getLongitudine());
-                   if(sLoc.distanceTo(location) >= 10000) continue;
-                   bounds.include(new LatLng(station.getLatitudine(),station.getLongitudine()));
-                   createStation(station);
+           if(!earthquakes.isEmpty()){
+               for(Earthquake earthquake : earthquakes){
+                   Location eLoc = new Location("Earthquake");
+                   eLoc.setLatitude(earthquake.getLatitudine());
+                   eLoc.setLongitude(earthquake.getLongitudine());
+                   //if(eLoc.distanceTo(location) >= 10000) continue;
+                   bounds.include(new LatLng(earthquake.getLatitudine(),earthquake.getLongitudine()));
+                   createEarthquake(earthquake);
                }
            }
            binding.getRoot().post(()->{
@@ -144,22 +145,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
     private void showMarkers(){
-        mainViewModel.getStations().observe(getViewLifecycleOwner(), stations -> {
+        mainViewModel.getEarthquakes().observe(getViewLifecycleOwner(), earthquakes -> {
 
-            MapFragment.this.stations = stations;
+            MapFragment.this.earthquakes = earthquakes;
             map.clear();
-            stations.forEach(this::createStation);
+            earthquakes.forEach(this::createEarthquake);
         });
     }
 
-    private void createStation(Station station) {
+    private void createEarthquake(Earthquake earthquake) {
         MarkerOptions options  = new MarkerOptions();
-        options.title(station.getNome());
-        options.position(new LatLng(station.getLatitudine(), station.getLongitudine()));
+        options.title(earthquake.getTitle());
+        options.position(new LatLng(earthquake.getLatitudine(), earthquake.getLongitudine()));
         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         requireActivity().runOnUiThread(() -> {
             Marker marker = map.addMarker(options);
-            marker.setTag(station);
+            marker.setTag(earthquake);
             markers.add(marker);
         });
     }
