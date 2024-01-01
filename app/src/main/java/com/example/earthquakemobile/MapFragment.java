@@ -21,7 +21,6 @@ import androidx.navigation.Navigation;
 
 import com.example.earthquakemobile.databinding.FragmentMapBinding;
 import com.example.earthquakemobile.model.Earthquake;
-import com.example.earthquakemobile.model.Station;
 import com.example.earthquakemobile.service.LocationHelper;
 import com.example.earthquakemobile.service.MainViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;

@@ -7,10 +7,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.earthquakemobile.Distributori;
+import com.example.earthquakemobile.EarthquakeMobile;
 import com.example.earthquakemobile.database.DB;
 import com.example.earthquakemobile.model.Earthquake;
-import com.example.earthquakemobile.model.Station;
 
 import org.chromium.net.CronetException;
 import org.chromium.net.UrlRequest;
@@ -28,43 +27,43 @@ public class MainViewModel extends AndroidViewModel {
     //private MutableLiveData<List<Station>> stations = new MutableLiveData<>();
     public MainViewModel(@NonNull Application application) {
         super(application);
-        this.repo = ((Distributori)application).getRepository();
+        this.repo = ((EarthquakeMobile)application).getRepository();
         new Thread(()->{
             List<Earthquake> list =  DB.getInstance(application).getEarthquakeDAO().getEarthquakes();
-            //TODO: Salvare i terremoti nel database non ha senso perchè se uno volesse vedere quelli
-            // più recenti non potrebbe, si potrebbe implementare un metodo che fa comunque la fetch
-            // all'API per scaricare unicamente i terremoti più recenti
             if(list.isEmpty()){
-                this.repo.downloadData(application,new Request.RequestCallback(){
-                    @Override
-                    public void onCompleted(UrlRequest request, UrlResponseInfo info, byte[] data, CronetException error) {
-                        List<Earthquake> temp = new ArrayList<Earthquake>();
-                        if(data != null) {
-                            String response = new String(data);
-                            try{
-                                JSONObject object = new JSONObject(response);
-                                JSONArray array = object.optJSONArray("features");
-                                for(int i = 0 ; i < array.length(); i++){
-                                    JSONObject item = array.optJSONObject(i);
-                                    Earthquake heqk = Earthquake.parseJson(item);
-                                    if(heqk != null && heqk.getTitle().length() != 0){
-                                        temp.add(heqk);
-                                    }
-
-                                }
-                            }catch(JSONException e){
-                                e.printStackTrace();
-                            }
-                        }
-                        DB.getInstance(getApplication()).getEarthquakeDAO().insert(temp);
-                        earthquakes.postValue(temp);
-                    }
-                });
+                refreshData();
             }else{
                 earthquakes.postValue(list);
             }
         }).start();
 
+    }
+
+    public void refreshData() {
+        repo.downloadData(getApplication(), new Request.RequestCallback() {
+            @Override
+            public void onCompleted(UrlRequest request, UrlResponseInfo info, byte[] data, CronetException error) {
+                List<Earthquake> temp = new ArrayList<>();
+                if (data != null) {
+                    String response = new String(data);
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONArray array = object.optJSONArray("features");
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject item = array.optJSONObject(i);
+                            Earthquake heqk = Earthquake.parseJson(item);
+                            if (heqk != null && heqk.getTitle().length() != 0) {
+                                temp.add(heqk);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                DB.getInstance(getApplication()).getEarthquakeDAO().insert(temp);
+                earthquakes.postValue(temp);
+            }
+        });
     }
 
     public LiveData<List<Earthquake>> getEarthquakes(){

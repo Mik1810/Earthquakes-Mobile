@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.example.earthquakemobile.service.Repository;
 
-public class Distributori extends Application {
+public class EarthquakeMobile extends Application {
     private Repository repo;
     @Override
     public void onCreate() {

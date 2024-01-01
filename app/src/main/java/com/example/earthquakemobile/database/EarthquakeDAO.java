@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.earthquakemobile.model.Earthquake;
-import com.example.earthquakemobile.model.Station;
 
 import java.util.List;
 

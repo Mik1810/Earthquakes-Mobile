@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.earthquakemobile.databinding.DetailBinding;
 import com.example.earthquakemobile.model.Earthquake;
-import com.example.earthquakemobile.model.Station;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_EARTHQUAKE = "extra";

@@ -5,11 +5,9 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.example.earthquakemobile.model.Earthquake;
-import com.example.earthquakemobile.model.Station;
 
 @Database(entities = {Earthquake.class}, version = 1)
 @TypeConverters({DateConverter.class})

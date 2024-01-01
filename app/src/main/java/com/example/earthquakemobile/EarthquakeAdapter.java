@@ -9,10 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.earthquakemobile.databinding.AdapterCityBinding;
 import com.example.earthquakemobile.databinding.AdapterEarthquakeBinding;
 import com.example.earthquakemobile.model.Earthquake;
-import com.example.earthquakemobile.model.Station;
 
 import java.util.List;
 
