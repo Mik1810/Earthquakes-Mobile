@@ -17,4 +17,5 @@ public interface EarthquakeDAO {
     void deleteAll();
     @Query("SELECT * FROM earthquakes;")
     List<Earthquake> getEarthquakes();
+
 }

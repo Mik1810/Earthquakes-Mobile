@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/menu_search"
+        android:icon="@drawable/baseline_youtube_searched_for_24"
+        android:title="@string/search" />
     <item
         android:id="@+id/menu_list"
         android:icon="@drawable/baseline_view_list_24"
@@ -10,4 +13,5 @@
         android:id="@+id/menu_map"
         android:icon="@drawable/baseline_map_24"
         android:title="@string/map" />
+
 </menu>

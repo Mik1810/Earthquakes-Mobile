@@ -70,5 +70,15 @@ public class MainViewModel extends AndroidViewModel {
         return earthquakes;
     }
 
-
+    public List<Earthquake> filterEarthquakesByLocation(String location){
+        List<Earthquake> filteredEarthquakes = new ArrayList<Earthquake>();
+        for(Earthquake eq : earthquakes.getValue()){
+            String earthquakePlaceLower = eq.getPlace().toLowerCase();
+            String earthquakeCountry = eq.getCountry().toLowerCase();
+            String earthquakeState = eq.getState().toLowerCase();
+            if(earthquakePlaceLower.contains(location) || earthquakeCountry.contains(location) || earthquakeState.contains(location))
+                filteredEarthquakes.add(eq);
+        }
+        return filteredEarthquakes;
+    }
 }

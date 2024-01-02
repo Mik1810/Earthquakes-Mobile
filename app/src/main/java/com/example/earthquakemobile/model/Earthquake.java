@@ -10,7 +10,6 @@ import java.util.Date;
 
 @Entity(tableName = "earthquakes")
 public class Earthquake implements Serializable {
-
     /*  {
           "type": "Feature",
           "properties": {
@@ -75,12 +74,12 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
          */
 
         String[] placeAndState = JSONproperties.optString("place").split(",");
-        String state = placeAndState.length > 1 ? placeAndState[1] : null;
+        String state = placeAndState.length > 1 ? placeAndState[1] : "";
         String[] placeAndCountry = placeAndState[0].split("of");
-        String country = placeAndCountry.length > 1 ? placeAndCountry[1] : null;
-        earthquake.setState(state);
-        earthquake.setCountry(country);
-        earthquake.setPlace(placeAndState[0]);
+        String country = placeAndCountry.length > 1 ? placeAndCountry[1] : "";
+        earthquake.setState(state.trim());
+        earthquake.setCountry(country.trim());
+        earthquake.setPlace(placeAndState[0].trim());
         earthquake.setTitle(JSONproperties.optString("title"));
         earthquake.setMagnitude(Float.valueOf(JSONproperties.optString("mag")));
         earthquake.setDate(new Date(Long.parseLong(JSONproperties.optString("time"))));
@@ -90,8 +89,9 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
         earthquake.setLatitudine(earthquake.getLongOrLatFromJSON(JSONgeometry
                 .optJSONArray("coordinates")
                 .optString(1)));
-
-        if (earthquake.place.equals("null")) earthquake.setPlace("Unknown place");
+        if (earthquake.place.length() <= 1)
+            earthquake.setPlace("Unknown place");
+        System.out.println(earthquake);
         return earthquake;
     }
 
@@ -121,8 +121,10 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
     }
 
     public String toLocationString() {
-        if (country != null && state != null) return country + ", " + state;
-        if (state != null) return place + " ," + state;
+        if (country.length() > 0 && state.length()>0)
+            return country + " ," + state;
+        if (state.length() > 0)
+            return place + " ," + state;
         return place;
     }
 

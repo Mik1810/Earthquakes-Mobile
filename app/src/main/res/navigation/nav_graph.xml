@@ -27,4 +27,13 @@
         android:name="com.example.earthquakemobile.DetailActivity"
         tools:layout="@layout/detail"
         android:label="DetailActivity" />
+    <fragment
+        android:id="@+id/menu_search"
+        android:name="com.example.earthquakemobile.SearchFragment"
+        tools:layout="@layout/fragment_search"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_menu_search_to_detail"
+            app:destination="@id/detail" />
+    </fragment>
 </navigation>

@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,7 +58,15 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
             Earthquake earthquake = data.get(getAdapterPosition());
             Bundle bundle = new Bundle();
             bundle.putSerializable(DetailActivity.EXTRA_EARTHQUAKE, earthquake);
-            Navigation.findNavController(v).navigate(R.id.action_menu_list_to_detailActivity,bundle);
+            NavController navController = Navigation.findNavController(v);
+            int currentFragID = navController.getCurrentDestination().getId();
+            if(currentFragID == R.id.menu_search){
+                navController.navigate(R.id.action_menu_search_to_detail,bundle);
+            }
+            if(currentFragID == R.id.menu_list){
+                navController.navigate(R.id.action_menu_list_to_detailActivity,bundle);
+            }
         }
+
     }
 }
