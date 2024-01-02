@@ -61,7 +61,7 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
             NavController navController = Navigation.findNavController(v);
             int currentFragID = navController.getCurrentDestination().getId();
             if(currentFragID == R.id.menu_search){
-                navController.navigate(R.id.action_menu_search_to_detail,bundle);
+                navController.navigate(R.id.action_menu_search_to_detailActivity,bundle);
             }
             if(currentFragID == R.id.menu_list){
                 navController.navigate(R.id.action_menu_list_to_detailActivity,bundle);

@@ -3,6 +3,7 @@ package com.example.earthquakemobile.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -83,27 +84,14 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
         earthquake.setTitle(JSONproperties.optString("title"));
         earthquake.setMagnitude(Float.valueOf(JSONproperties.optString("mag")));
         earthquake.setDate(new Date(Long.parseLong(JSONproperties.optString("time"))));
-        earthquake.setLongitudine(earthquake.getLongOrLatFromJSON(JSONgeometry
-                .optJSONArray("coordinates")
-                .optString(0)));
-        earthquake.setLatitudine(earthquake.getLongOrLatFromJSON(JSONgeometry
-                .optJSONArray("coordinates")
-                .optString(1)));
+        // Get the coordinates
+        JSONArray coordinates = JSONgeometry.optJSONArray("coordinates");
+        earthquake.setLongitudine(Double.parseDouble(coordinates.optString(0)));
+        earthquake.setLatitudine(Double.parseDouble(coordinates.optString(1)));
+        earthquake.setDepth(Double.parseDouble(coordinates.optString(2)));
         if (earthquake.place.length() <= 1)
             earthquake.setPlace("Unknown place");
-        System.out.println(earthquake);
         return earthquake;
-    }
-
-    private double getLongOrLatFromJSON(String value){
-        if(value == null)
-            return 0;
-        try{
-            return Double.parseDouble(value);
-        }catch (NumberFormatException e){
-            e.printStackTrace();
-            return 0;
-        }
     }
 
     @Override
@@ -138,7 +126,7 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
     private Date date;
     private Double latitudine;
     private Double longitudine;
-
+    private Double depth;
     public Integer getId() {
         return id;
     }
@@ -209,5 +197,13 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Double getDepth() {
+        return depth;
+    }
+
+    public void setDepth(Double depth) {
+        this.depth = depth;
     }
 }

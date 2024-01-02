@@ -11,7 +11,7 @@
         android:label="ListFragment" >
         <action
             android:id="@+id/action_menu_list_to_detailActivity"
-            app:destination="@id/detail" />
+            app:destination="@id/detailActivity" />
     </fragment>
     <fragment
         android:id="@+id/menu_map"
@@ -20,20 +20,19 @@
         android:label="MapFragment" >
         <action
             android:id="@+id/action_menu_map_to_detailActivity"
-            app:destination="@id/detail" />
+            app:destination="@id/detailActivity" />
     </fragment>
-    <activity
-        android:id="@+id/detail"
-        android:name="com.example.earthquakemobile.DetailActivity"
-        tools:layout="@layout/detail"
-        android:label="DetailActivity" />
     <fragment
         android:id="@+id/menu_search"
         android:name="com.example.earthquakemobile.SearchFragment"
         tools:layout="@layout/fragment_search"
         android:label="SearchFragment" >
         <action
-            android:id="@+id/action_menu_search_to_detail"
-            app:destination="@id/detail" />
+            android:id="@+id/action_menu_search_to_detailActivity"
+            app:destination="@id/detailActivity" />
     </fragment>
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="com.example.earthquakemobile.DetailActivity"
+        android:label="DetailActivity" />
 </navigation>

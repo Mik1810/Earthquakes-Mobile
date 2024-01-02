@@ -26,7 +26,7 @@
                 android:id="@+id/search_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/baseline_youtube_searched_for_24"
+                android:drawableEnd="@drawable/ic_search"
                 android:ems="10"
                 android:inputType="text"
                 android:textSize="24sp"

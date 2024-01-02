@@ -115,7 +115,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             MarkerOptions opt = new MarkerOptions();
             opt.title("You");
             opt.position(current);
-            opt.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+            opt.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             this.marker = map.addMarker(opt);
         }else{
             marker.setPosition(current);
@@ -156,7 +156,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         MarkerOptions options  = new MarkerOptions();
         options.title(earthquake.getTitle());
         options.position(new LatLng(earthquake.getLatitudine(), earthquake.getLongitudine()));
-        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        if(earthquake.getMagnitude()>6)
+            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        else if(earthquake.getMagnitude()<=6 && earthquake.getMagnitude()>3)
+            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+        else
+            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
         requireActivity().runOnUiThread(() -> {
             Marker marker = map.addMarker(options);
             marker.setTag(earthquake);

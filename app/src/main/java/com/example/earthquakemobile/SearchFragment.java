@@ -52,7 +52,7 @@ public class SearchFragment extends Fragment {
                         binding.searchList.setAdapter(new EarthquakeAdapter(new ArrayList<Earthquake>()));
                     }else{
                         String changedText = s.toString();
-                        List<Earthquake> searchedEarthquakes = mainViewModel.filterEarthquakesByLocation(changedText);
+                        List<Earthquake> searchedEarthquakes = mainViewModel.filterEarthquakesByLocation(changedText.toLowerCase());
                         binding.searchList.setAdapter(new EarthquakeAdapter(searchedEarthquakes));
                     }
 
