@@ -30,7 +30,7 @@
                 android:ems="10"
                 android:inputType="text"
                 android:textSize="24sp"
-                android:hint="@string/search" />
+                android:hint="@string/search..." />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
