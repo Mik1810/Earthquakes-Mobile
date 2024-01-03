@@ -1,11 +1,13 @@
 package com.example.earthquakemobile;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -33,7 +35,28 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Earthquake earthquake = data.get(position);
+
+        Context context = holder.itemView.getContext();
+
+        int lineColor = getLineColor(earthquake, context);
+        holder.binding.tickDanger.setBackgroundColor(lineColor);
+
         holder.onBind(earthquake);
+
+    }
+
+    private int getLineColor(Earthquake earthquake, Context context) {
+
+        switch (earthquake.getDanger()) {
+            case RED:
+                return ContextCompat.getColor(context, R.color.lineRed);
+            case ORANGE:
+                return ContextCompat.getColor(context, R.color.lineOrange);
+            case YELLOW:
+                return ContextCompat.getColor(context, R.color.lineYellow);
+            default:
+                return ContextCompat.getColor(context, R.color.lineDefault);
+        }
     }
 
     @Override

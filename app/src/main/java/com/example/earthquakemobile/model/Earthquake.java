@@ -89,8 +89,14 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
         earthquake.setLongitudine(Double.parseDouble(coordinates.optString(0)));
         earthquake.setLatitudine(Double.parseDouble(coordinates.optString(1)));
         earthquake.setDepth(Double.parseDouble(coordinates.optString(2)));
-        if (earthquake.place.length() <= 1)
-            earthquake.setPlace("Unknown place");
+        if(earthquake.getMagnitude() > 4) {
+            earthquake.setDanger(Danger.RED);
+        } else if (earthquake.getMagnitude()<=4 && earthquake.getMagnitude()>2.5) {
+            earthquake.setDanger(Danger.ORANGE);
+        } else {
+            earthquake.setDanger(Danger.YELLOW);
+        }
+        if (earthquake.place.equals("null")) earthquake.setPlace("Unknown place");
         return earthquake;
     }
 
@@ -127,6 +133,9 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
     private Double latitudine;
     private Double longitudine;
     private Double depth;
+
+    private Danger danger;
+
     public Integer getId() {
         return id;
     }
@@ -205,5 +214,15 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
 
     public void setDepth(Double depth) {
         this.depth = depth;
+    }
+
+    public Danger getDanger() { return danger; }
+
+    public void setDanger(Danger danger) { this.danger = danger; }
+
+    public enum Danger {
+        RED,
+        ORANGE,
+        YELLOW
     }
 }

@@ -156,12 +156,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         MarkerOptions options  = new MarkerOptions();
         options.title(earthquake.getTitle());
         options.position(new LatLng(earthquake.getLatitudine(), earthquake.getLongitudine()));
-        if(earthquake.getMagnitude()>6)
+        if(earthquake.getDanger() == Earthquake.Danger.RED) {
             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-        else if(earthquake.getMagnitude()<=6 && earthquake.getMagnitude()>3)
+        } else if(earthquake.getDanger() == Earthquake.Danger.ORANGE) {
             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-        else
+        } else {
             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+        }
         requireActivity().runOnUiThread(() -> {
             Marker marker = map.addMarker(options);
             marker.setTag(earthquake);

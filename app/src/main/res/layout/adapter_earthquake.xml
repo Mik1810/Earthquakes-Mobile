@@ -39,8 +39,18 @@
                 android:paddingLeft="5dp"
                 android:text="@{earthquake.magnitude.toString() + ` - ` + earthquake.date.toLocaleString()}"
                 tools:text="Informations" />
+
         </LinearLayout>
+        <ImageView
+            android:id="@+id/tickDanger"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="#FF0000"
+            android:layout_gravity="end"
+            android:layout_marginEnd="0dp"
+            />
 
     </androidx.cardview.widget.CardView>
+
 </LinearLayout>
 </layout>

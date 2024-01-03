@@ -4,5 +4,5 @@
     <string name="map">Map</string>
     <string name="location_needed">Location Needed</string>
     <string name="magnitude">Magnitude:</string>
-    <string name="search">Search</string>
+    <string name="search">Search...</string>
 </resources>

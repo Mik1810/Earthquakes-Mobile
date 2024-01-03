@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="lineRed">#FF1100</color>
+    <color name="lineOrange">#E9660F</color>
+    <color name="lineYellow">#FFEB3B</color>
+    <color name="lineDefault">#FFFFFF</color>
 </resources>
