@@ -11,12 +11,14 @@ import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.WritableByteChannel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Request {
 
-    private final String EARTHQUAKE_API_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2023-01-01&endtime=2023-12-31&latitude=41.8719&longitude=12.5674&maxradius=5";
+    private final String EARTHQUAKE_API_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=41.8719&longitude=12.5674&maxradius=5";
     private final Executor executor = Executors.newSingleThreadExecutor();
     private CronetEngine engine;
     private static volatile Request instance = null;
@@ -42,7 +44,12 @@ public class Request {
 
     public void requestDownload(Request.RequestCallback callback){
         try{
-            engine.newUrlRequestBuilder(EARTHQUAKE_API_URL,callback,executor).build().start();
+            LocalDate endTime = LocalDate.now();
+            LocalDate startTime = endTime.minusYears(1);
+            DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String api = EARTHQUAKE_API_URL + "&starttime=" + startTime.format(formatDate)
+                                            + "&endtime" + endTime.format(formatDate);
+            engine.newUrlRequestBuilder(api,callback,executor).build().start();
         }catch(Exception e){
             System.out.println("Gotcha");
             e.printStackTrace();
