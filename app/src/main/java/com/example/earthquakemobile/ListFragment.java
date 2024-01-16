@@ -24,7 +24,7 @@ import java.util.List;
 public class ListFragment extends Fragment {
     private FragmentListBinding binding;
     private SwipeRefreshLayout swipeRefreshLayout;
-
+    private MainViewModel model = null;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,11 +34,9 @@ public class ListFragment extends Fragment {
         swipeRefreshLayout = rootView.findViewById(R.id.menu_list);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             Toast.makeText(requireContext(), "Dati aggiornati", Toast.LENGTH_SHORT).show();
-
             // Aggiorna i dati quando si effettua uno swipe down chiamando il metodo refreshData() del MainViewModel
             new Thread(() -> {
-                MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-                mainViewModel.refreshData();
+                this.model.refreshData();
             }).start();
 
             // Chiude l'indicatore di aggiornamento
@@ -52,10 +50,10 @@ public class ListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         try{
-            MainViewModel mainViewModel = new ViewModelProvider(requireActivity())
+            this.model = new ViewModelProvider(requireActivity())
                     .get(MainViewModel.class);
             binding.earthquakeList.setLayoutManager(new LinearLayoutManager(requireContext()));
-            mainViewModel.getEarthquakes().observe(getViewLifecycleOwner(), new Observer<List<Earthquake>>() {
+            this.model.getEarthquakes().observe(getViewLifecycleOwner(), new Observer<List<Earthquake>>() {
                 @Override
                 public void onChanged(List<Earthquake> earthquakes) {
                     binding.earthquakeList.setAdapter(new EarthquakeAdapter(earthquakes));

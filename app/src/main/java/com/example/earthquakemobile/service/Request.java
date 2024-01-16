@@ -51,7 +51,6 @@ public class Request {
                                             + "&endtime" + endTime.format(formatDate);
             engine.newUrlRequestBuilder(api,callback,executor).build().start();
         }catch(Exception e){
-            System.out.println("Gotcha");
             e.printStackTrace();
         }
     }

@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.EarthquakeMobile" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#FF7900</item>
+        <item name="android:navigationBarColor">#FF0000</item>
     </style>
 </resources>

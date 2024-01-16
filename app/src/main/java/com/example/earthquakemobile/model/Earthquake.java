@@ -220,6 +220,16 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
 
     public void setDanger(Danger danger) { this.danger = danger; }
 
+    public boolean equals(Object obj){
+        if(obj == null || !(obj instanceof Earthquake) )
+            return false;
+        if(this == obj)
+            return true;
+        Earthquake eq = (Earthquake) obj;
+        return this.place.equals(eq.place) && this.date.equals(eq.date) &&
+                this.depth == eq.depth && this.latitudine == eq.latitudine && this.longitudine==eq.longitudine&&
+                this.magnitude==eq.magnitude;
+    }
     public enum Danger {
         RED,
         ORANGE,

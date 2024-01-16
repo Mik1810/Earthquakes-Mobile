@@ -18,11 +18,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MainViewModel extends AndroidViewModel {
     private Repository repo;
@@ -43,8 +43,6 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void refreshData() {
-
-
         repo.downloadData(getApplication(), new Request.RequestCallback() {
             @Override
             public void onCompleted(UrlRequest request, UrlResponseInfo info, byte[] data, CronetException error) {
@@ -61,13 +59,16 @@ public class MainViewModel extends AndroidViewModel {
                                 temp.add(heqk);
                             }
                         }
-                        temp.sort((Earthquake earthquake1, Earthquake earthquake2) ->
-                                earthquake2.getDate().compareTo(earthquake1.getDate()));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                DB.getInstance(getApplication()).getEarthquakeDAO().insert(temp);
+                if(earthquakes.getValue()==null)
+                    DB.getInstance(getApplication()).getEarthquakeDAO().insert(temp);
+                else if(earthquakes.getValue().size() != temp.size()){
+                    DB.getInstance(getApplication()).getEarthquakeDAO().deleteAll();
+                    DB.getInstance(getApplication()).getEarthquakeDAO().insert(temp);
+                }
                 earthquakes.postValue(temp);
             }
         });
