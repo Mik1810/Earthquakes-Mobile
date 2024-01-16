@@ -18,7 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
@@ -40,6 +43,8 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void refreshData() {
+
+
         repo.downloadData(getApplication(), new Request.RequestCallback() {
             @Override
             public void onCompleted(UrlRequest request, UrlResponseInfo info, byte[] data, CronetException error) {
@@ -56,6 +61,8 @@ public class MainViewModel extends AndroidViewModel {
                                 temp.add(heqk);
                             }
                         }
+                        temp.sort((Earthquake earthquake1, Earthquake earthquake2) ->
+                                earthquake2.getDate().compareTo(earthquake1.getDate()));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -65,6 +72,7 @@ public class MainViewModel extends AndroidViewModel {
             }
         });
     }
+
 
     public LiveData<List<Earthquake>> getEarthquakes(){
         return earthquakes;

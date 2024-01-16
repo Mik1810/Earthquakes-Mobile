@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.earthquakemobile.database.DB;
 import com.example.earthquakemobile.databinding.FragmentListBinding;
 import com.example.earthquakemobile.model.Earthquake;
 import com.example.earthquakemobile.service.MainViewModel;
