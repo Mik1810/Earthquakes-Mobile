@@ -6,4 +6,7 @@
     <string name="magnitude">Magnitude:</string>
     <string name="search...">Search…</string>
     <string name="search">Search</string>
+    <string name="lat">Lat:</string>
+    <string name="lng">Lng:</string>
+    <string name="danger">Danger:</string>
 </resources>

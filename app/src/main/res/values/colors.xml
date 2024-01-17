@@ -6,4 +6,10 @@
     <color name="lineOrange">#E9660F</color>
     <color name="lineYellow">#FFEB3B</color>
     <color name="lineDefault">#FFFFFF</color>
+    <color name="accentOrange">#FFA500</color>
+    <color name="selectedColor">#E9660F</color>
+    <color name="unselectedColor">#80E9660F</color>
+    <color name="selectedWhite">#FFFFFF</color>
+    <color name="unselectedWhite">#CCCCCC</color>
+    <color name="darkerOrange">#F69520</color>
 </resources>

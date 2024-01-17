@@ -63,9 +63,12 @@ public class MainViewModel extends AndroidViewModel {
                         e.printStackTrace();
                     }
                 }
-                if(earthquakes.getValue()==null)
+                if(earthquakes.getValue() == null) {
+                    // Se nel DB non sono presenti terremoti, allora la lista risulta null
                     DB.getInstance(getApplication()).getEarthquakeDAO().insert(temp);
-                else if(earthquakes.getValue().size() != temp.size()){
+                } else if(earthquakes.getValue().size() != temp.size()){
+                    // Se nel DB sono presenti terremoti ma ne vengono scaricati di più,
+                    // allora vengolo cancellati i vecchi terremoti dal DB e caricati i nuovi
                     DB.getInstance(getApplication()).getEarthquakeDAO().deleteAll();
                     DB.getInstance(getApplication()).getEarthquakeDAO().insert(temp);
                 }

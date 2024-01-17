@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.EarthquakeMobile" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">#FF7900</item>
+        <item name="colorPrimary">@color/darkerOrange</item>
     </style>
 
     <style name="Theme.EarthquakeMobile" parent="Base.Theme.EarthquakeMobile">
-        <item name="colorPrimary">#FF7900</item>
-        <item name="colorAccent">#FF7900</item>
-        <item name="actionMenuTextColor">#FF0000</item>
+        <item name="colorPrimary">@color/darkerOrange</item>
+        <item name="colorAccent">@color/accentOrange</item>
+        <item name="actionMenuTextColor">@color/lineRed</item>
     </style>
 </resources>

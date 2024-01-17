@@ -50,8 +50,7 @@ public class ListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         try{
-            this.model = new ViewModelProvider(requireActivity())
-                    .get(MainViewModel.class);
+            this.model = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
             binding.earthquakeList.setLayoutManager(new LinearLayoutManager(requireContext()));
             this.model.getEarthquakes().observe(getViewLifecycleOwner(), new Observer<List<Earthquake>>() {
                 @Override
@@ -61,7 +60,6 @@ public class ListFragment extends Fragment {
             });
         }catch(Exception e) {
             e.printStackTrace();
-            System.out.println("Ciao");
         }
     }
 }

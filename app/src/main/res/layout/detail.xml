@@ -10,6 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/detail"
+        android:layout_marginHorizontal="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -32,10 +33,9 @@
             android:id="@+id/cardView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            android:layout_marginHorizontal="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detailTitle" >
 
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="10dp"
+                    android:layout_marginVertical="5dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="12dp"
                     android:text="@{`Place:\t\t`+earthquake.place}"
@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="10dp"
+                    android:layout_marginVertical="5dp"
                     android:text="@{`Magnitude:\t\t` + earthquake.magnitude.toString()}"
                     android:textSize="20sp"
                     tools:text="Magnitude:" />
@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="10dp"
+                    android:layout_marginVertical="5dp"
                     android:text="@{`Date:\t\t` + earthquake.date.toLocaleString()}"
                     android:textSize="20sp"
                     tools:text="Depth" />
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="10dp"
+                    android:layout_marginVertical="5dp"
                     android:text="@{`Depth:\t\t` + earthquake.depth+ ` Km`}"
                     android:textSize="20sp"
                     tools:text="Date:" />
@@ -89,17 +89,72 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView3"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="378dp"
-            android:layout_height="305dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@+id/cardView2"
-            app:layout_constraintVertical_bias="0.098" />
+            android:layout_marginBottom="110dp"
+            android:layout_marginHorizontal="5dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainerView3"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lngTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:textStyle="italic"
+                    android:layout_weight="0.5"
+                    android:text="@{`Lat: ` + earthquake.longitudine}"
+                    />
+
+                <TextView
+                    android:id="@+id/latTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:textStyle="italic"
+                    android:layout_marginStart="8dp"
+                    android:text="@{`Long: ` + earthquake.longitudine}"
+                    />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
