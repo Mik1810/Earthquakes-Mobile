@@ -139,7 +139,7 @@
                     android:layout_marginStart="3dp"
                     android:textStyle="italic"
                     android:layout_weight="0.5"
-                    android:text="@{`Lat: ` + earthquake.longitudine}"
+                    android:text="@{`Lat: ` + earthquake.latitudine}"
                     />
 
                 <TextView
