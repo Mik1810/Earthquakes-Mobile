@@ -116,9 +116,9 @@ OK          "coordinates": [16.2809, 43.4502, 10]  (Long, Lat, Alt) So invertiti
 
     public String toLocationString() {
         if (country.length() > 0 && state.length()>0)
-            return country + " ," + state;
+            return country + ", " + state;
         if (state.length() > 0)
-            return place + " ," + state;
+            return place + ", " + state;
         return place;
     }
 
