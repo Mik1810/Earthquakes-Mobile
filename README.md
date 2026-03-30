@@ -22,6 +22,32 @@
 
 ---
 
+## Contributors
+
+<table>
+  <tr>
+    <td valign="middle" align="center">
+      <a href="https://github.com/Mik1810">
+        <img src="https://github.com/Mik1810.png" width="52" height="52" alt="Mik1810" />
+      </a>
+    </td>
+    <td valign="middle">
+      <a href="https://github.com/Mik1810"><b>Mik1810</b></a>
+    </td>
+    <td width="28"></td>
+    <td valign="middle" align="center">
+      <a href="https://github.com/LucaFraMacera">
+        <img src="https://github.com/LucaFraMacera.png" width="52" height="52" alt="LucaFraMacera" />
+      </a>
+    </td>
+    <td valign="middle">
+      <a href="https://github.com/LucaFraMacera"><b>LucaFraMacera</b></a>
+    </td>
+  </tr>
+</table>
+
+---
+
 ## Overview
 
 **Earthquake Mobile** is a native Android application designed to help users explore earthquake activity in Italy through a clean and practical mobile interface.
